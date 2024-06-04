@@ -35,6 +35,18 @@ class VisualOdometryDataset(Dataset):
                     rgb_paths, ground_truth_data)
 
             # TODO: create sequences
+            for i in range(len(rgb_paths) - sequence_length + 1):
+                if not validation:
+                    sequence = {
+                        "images": rgb_paths[i:i + sequence_length],
+                        "ground_truth": interpolated_ground_truth[i:i + sequence_length]
+                    }
+                else:
+                    sequence = {
+                        "images": rgb_paths[i:i + sequence_length],
+                        "ground_truth": []
+                    }
+                self.sequences.append(sequence)
 
         self.transform = transform
         self.sequence_length = sequence_length
@@ -46,13 +58,47 @@ class VisualOdometryDataset(Dataset):
     def __getitem__(self, idx: int) -> torch.TensorType:
 
         # Load sequence of images
+        sequence_data = self.sequences[idx]
         sequence_images = []
         ground_truth_pos = []
-        timestampt = 0
+        timestamp = 0
 
         # TODO: return the next sequence
+        for img_path in sequence_data["images"]:
+            timestamp, path = img_path
+            img = cv2.imread(path)
+            if self.transform:
+                img = self.transform(img)
+            sequence_images.append(img)
+        
+        
 
-        return sequence_images, ground_truth_pos, timestampt
+        if not self.validation:
+            ground_truth_pos = [gt[1] for gt in sequence_data["ground_truth"]]
+
+            ground_truth_pos = [
+                ground_truth_pos[-1][0] - ground_truth_pos[0][0],
+                ground_truth_pos[-1][1] - ground_truth_pos[0][1],
+                ground_truth_pos[-1][2] - ground_truth_pos[0][2],
+                ground_truth_pos[-1][3] - ground_truth_pos[0][3],
+                ground_truth_pos[-1][4] - ground_truth_pos[0][4],
+                ground_truth_pos[-1][5] - ground_truth_pos[0][5],
+                ground_truth_pos[-1][6] - ground_truth_pos[0][6]
+                ]
+
+
+        sequence_images = torch.stack(sequence_images)
+        
+        
+        
+        
+      
+            
+        new_ground_truth_pos = torch.tensor(ground_truth_pos, dtype=torch.float32)
+
+        
+        
+        return sequence_images, new_ground_truth_pos, timestamp
 
     def read_images_paths(self, dataset_path: str) -> Tuple[float, str]:
 

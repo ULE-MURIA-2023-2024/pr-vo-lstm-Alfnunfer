@@ -28,7 +28,24 @@ class VisualOdometryModel(nn.Module):
 
         # TODO: create the LSTM
 
+        self.lstm = nn.LSTM(
+            input_size=resnet_output,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            bidirectional=bidirectional,
+            dropout=lstm_dropout,
+            batch_first=True
+        )
+
         # TODO: create the FC to generate the translation (3) and rotation (4)
+        
+        # Create the FC to generate the translation (3) and rotation (4)
+        lstm_output_size = hidden_size * 2 if bidirectional else hidden_size
+        
+        self.fc1 = nn.Linear(lstm_output_size, lstm_output_size//2)
+        self.fc2 = nn.Linear(lstm_output_size//2, lstm_output_size//4)
+        self.fc3 = nn.Linear(lstm_output_size//4, 7)
+        
 
     def resnet_transforms(self) -> Callable:
         return weights.DEFAULT.transforms(antialias=True)
@@ -41,8 +58,29 @@ class VisualOdometryModel(nn.Module):
 
         with torch.no_grad():
             features = self.cnn_model(features)
+            
+        features = features.view(batch_size, seq_length, -1)
+            
+        #print('s-1',features.shape)
 
         # TODO: use the LSTM
+        lstm_out, _ = self.lstm(features)
+        
+        #print('s0',lstm_out.shape)
+        
+        x = self.fc1(lstm_out)
+        x = torch.relu(x)
+        x = self.fc2(x)
+        x = torch.relu(x)
+        translation_rotation = self.fc3(x)
+
+
 
         # TODO: Get the output of the last time step
-        return ...
+        #print('s1',translation_rotation.shape)
+        lstm_out_last = translation_rotation[:,-1,:]
+        #print('s2',lstm_out_last.shape)
+
+        
+
+        return lstm_out_last
