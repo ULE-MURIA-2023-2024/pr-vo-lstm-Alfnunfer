@@ -44,3 +44,37 @@ $ python3 val.py
 ## Results
 
 Put your results here showing the graphs got from [TUM online validation tool](https://cvg.cit.tum.de/data/datasets/rgbd-dataset/online_evaluation).
+
+## Resultado del alumno
+
+Tras entrenar con los cuatro conjuntos de entrenamiento, para el conjunto de evaluacion (freiburg2_pioneer_360) se obtuvo la siguiente salida
+
+Output:
+
+compared_pose_pairs 1659 pairs
+
+translational_error.rmse 0.030508 m
+
+translational_error.mean 0.027809 m
+
+translational_error.median 0.026598 m
+
+translational_error.std 0.012545 m
+
+translational_error.min 0.002649 m
+
+translational_error.max 0.066030 m
+
+rotational_error.rmse 1.323285 deg
+
+rotational_error.mean 1.014853 deg
+
+rotational_error.median 0.015463 deg
+
+rotational_error.std 0.849209 deg
+
+rotational_error.min 0.015456 deg
+
+rotational_error.max 11.280195 deg
+
+<img src="./docs/Resultados.png" width="100%" />
