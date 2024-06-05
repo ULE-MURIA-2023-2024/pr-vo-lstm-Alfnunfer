@@ -49,7 +49,23 @@ Put your results here showing the graphs got from [TUM online validation tool](h
 
 Tras entrenar con los cuatro conjuntos de entrenamiento, para el conjunto de evaluacion (freiburg2_pioneer_360) se obtuvo la siguiente salida
 
-Output:
+#### Parametros:
+
+##### LSTM
+hidden_size = 512
+num_layers = 1
+bidirectional = False
+lstm_dropout = 0.2
+
+##### Dataset
+sequence_length = 2
+batch_size = 128
+
+##### Train
+learning_rate = 0.001
+epochs = 5
+
+#### Output:
 
 compared_pose_pairs 1659 pairs
 
@@ -76,5 +92,7 @@ rotational_error.std 0.849209 deg
 rotational_error.min 0.015456 deg
 
 rotational_error.max 11.280195 deg
+
+#### Imagen:
 
 <img src="./docs/Resultados.png" width="100%" />
