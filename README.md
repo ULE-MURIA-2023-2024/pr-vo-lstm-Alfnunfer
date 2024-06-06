@@ -45,24 +45,35 @@ $ python3 val.py
 
 Put your results here showing the graphs got from [TUM online validation tool](https://cvg.cit.tum.de/data/datasets/rgbd-dataset/online_evaluation).
 
-## Resultado del alumno
+---
 
-Tras entrenar con los cuatro conjuntos de entrenamiento, para el conjunto de evaluacion (freiburg2_pioneer_360) se obtuvo la siguiente salida
+# Resultado del alumno
+
+Tras entrenar con los cuatro conjuntos de entrenamiento, para el conjunto de evaluacion (freiburg2_pioneer_360) se obtuvieron las siguientes salidas:
+
+---
+
+## Prueba1
 
 #### Parametros:
 
 ##### LSTM
 hidden_size = 512
+
 num_layers = 1
+
 bidirectional = False
+
 lstm_dropout = 0.2
 
 ##### Dataset
 sequence_length = 2
+
 batch_size = 128
 
 ##### Train
 learning_rate = 0.001
+
 epochs = 5
 
 #### Output:
@@ -96,3 +107,36 @@ rotational_error.max 11.280195 deg
 #### Imagen:
 
 <img src="./docs/Resultados.png" width="100%" />
+
+---
+
+## Prueba2
+
+#### Parametros:
+
+##### LSTM
+hidden_size = 512
+
+num_layers = 2
+
+bidirectional = True
+
+lstm_dropout = 0.2
+
+##### Dataset
+sequence_length = 4
+
+batch_size = 128
+
+##### Train
+learning_rate = 0.001
+
+epochs = 5
+
+#### Output:
+
+
+
+#### Imagen:
+
+<img src="./docs/Resultados2.png" width="100%" />
