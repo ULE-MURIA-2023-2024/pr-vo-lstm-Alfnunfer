@@ -106,7 +106,7 @@ rotational_error.max 11.280195 deg
 
 #### Imagen:
 
-<img src="./docs/Resultados.png" width="100%" />
+<img src="./docs/Resultados1.png" width="100%" />
 
 ---
 
@@ -135,7 +135,31 @@ epochs = 5
 
 #### Output:
 
+compared_pose_pairs 1645 pairs
 
+translational_error.rmse 0.132923 m
+
+translational_error.mean 0.123242 m
+
+translational_error.median 0.131100 m
+
+translational_error.std 0.049799 m
+
+translational_error.min 0.008945 m
+
+translational_error.max 0.284050 m
+
+rotational_error.rmse 3.599547 deg
+
+rotational_error.mean 2.088153 deg
+
+rotational_error.median 0.031909 deg
+
+rotational_error.std 2.931954 deg
+
+rotational_error.min 0.060502 deg
+
+rotational_error.max 65.071054 deg
 
 #### Imagen:
 
